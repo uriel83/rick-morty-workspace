@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit {
 
     this.charactersService.getCharactersByPage(this.currentPage).subscribe({
       next: (res) => {
-        // this.characters.push(...res.results);
         this.characters.update(prev => [...prev, ...res.results]);
         console.log(this.characters());
 

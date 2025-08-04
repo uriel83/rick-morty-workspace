@@ -9,14 +9,12 @@ describe('FavoritesComponent', () => {
   let component: FavoritesComponent;
   let favorites: FavoritesService;
 
-  // Mock ל-CharactersService
   const charactersServiceMock: Partial<CharactersService> = {
     getCharacterById: (id: number) =>
       of({ id, name: `Char ${id}` } as any)
   };
 
   beforeEach(() => {
-    // איפוס התמדה ומצב בין בדיקות
     localStorage.clear();
 
     TestBed.configureTestingModule({
@@ -63,7 +61,6 @@ describe('FavoritesComponent', () => {
 
     component.openPopup();
 
-    // forkJoin(of(...)) מסיים מיידית; נותנים טיקט מיקרוטאסק אחד
     setTimeout(() => {
       const chars = component.charactersFavorites();
       expect(chars.map(c => c.id)).toEqual([7, 8]);
@@ -72,22 +69,18 @@ describe('FavoritesComponent', () => {
   });
 
   it('removeFromFavorites (via component) removes character from list and service', async () => {
-    // אתחול מצב השירות לבדיקה זו
     favorites.addToFavorites(1);
     favorites.addToFavorites(2);
     await Promise.resolve();
 
-    // שיקוף רשימת דמויות בקומפוננטה (כמו במצב שבו הפופאפ כבר פתוח)
     component['charactersFavorites'].set([
       { id: 1, name: 'Char 1' } as any,
       { id: 2, name: 'Char 2' } as any
     ]);
 
-    // פעולה דרך הקומפוננטה
     component.removeFromFavorites(1);
     await Promise.resolve();
 
-    // ציפיות: הוסרה מהתצוגה ומהשירות
     expect(component.charactersFavorites().map(c => c.id)).toEqual([2]);
     expect(favorites.favoritesList()).toEqual([2]);
   });
