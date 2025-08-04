@@ -1,0 +1,30 @@
+<div class="star-container" (click)="openPopup()">
+  <img src="assets/ui/icons/star.svg" alt="star">
+  <span class="star-number">{{favoritesList().length}}</span>
+</div>
+@if (showPopup) {
+  <lib-popup (close)="showPopup = false">
+    <div class="favorites-container">
+      @for (character of charactersFavorites(); track character.id) {
+        <div class="favorite-card-wrapper">
+          <lib-character-card
+            [character]="character"
+            [action]="false"
+          ></lib-character-card>
+
+          <button class="remove-btn" (click)="removeFromFavorites(character.id)">
+            Remove from favorites
+          </button>
+        </div>
+      }
+    </div>
+    @if(charactersFavorites().length === 0){
+      <div class="empty-state">
+        <img src="assets/ui/icons/empty-star.svg" alt="No favorites" />
+        <p>No favorite characters yet — start adding some!</p>
+      </div>
+    }
+  </lib-popup>
+      <!-- (toggleFavorite)="onToggleFavorite(character)" -->
+
+}

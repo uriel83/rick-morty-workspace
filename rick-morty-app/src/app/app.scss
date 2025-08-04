@@ -1,0 +1,62 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.app-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 98vh;
+  overflow: hidden;
+
+}
+
+.app-header {
+  background: linear-gradient(90deg, #6734B9, #9B59B6, #EA498B);
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.app-header .title {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+  overflow: hidden;
+  height: 100%;
+}
+
+.router-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+footer {
+  background-color: #5F7C8B;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 18px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+

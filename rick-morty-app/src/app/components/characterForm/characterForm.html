@@ -1,0 +1,65 @@
+<div class="character-form">
+  <h2>Create or Edit Character</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Name -->
+    <label>
+      Name:
+      <input type="text" formControlName="name" placeholder="Character name" />
+    </label>
+
+    <!-- Image URL -->
+    <label>
+      Image URL:
+      <input type="text" formControlName="image" placeholder="https://..." />
+    </label>
+
+    @if (invalidImageUrl) {
+      <p class="error-message">Invalid image URL</p>
+    }
+
+    <!-- Preview Image -->
+    @if (form.get('image')?.value && !invalidImageUrl) {
+      <img
+        [src]="form.get('image')?.value"
+        (error)="onImageError()"
+        (load)="onImageLoad()"
+        alt="Preview"
+        class="image-preview"
+      />
+    }
+
+    <!-- Status -->
+    <label>
+      Status:
+      <select formControlName="status">
+        @for (status of CHARACTER_STATUSES; track status) {
+          <option [value]="status">{{ status }}</option>
+        }
+      </select>
+    </label>
+
+    <!-- Gender -->
+    <label>
+      Gender:
+      <select formControlName="gender">
+        @for (gender of GENDERS; track gender) {
+          <option [value]="gender">{{ gender }}</option>
+        }
+      </select>
+    </label>
+
+    <!-- Location -->
+    <label>
+      Location:
+      <select formControlName="location">
+        @for (location of locations(); track location.id) {
+          <option [ngValue]="location">{{ location.name }}</option>
+        }
+      </select>
+    </label>
+
+    <!-- Submit -->
+    <button type="submit" [disabled]="form.invalid">Save Character</button>
+  </form>
+</div>

@@ -1,0 +1,38 @@
+<div class="character-card">
+  <img [src]="character.image" [alt]="character.name" class="character-image" />
+
+  @if (action) {
+    <!-- כפתור כוכב תמידי בצד שמאל -->
+    <div class="favorite-action">
+      <button class="favorite-button" (click)="onToggleFavorite()" title="Favorite">
+        <img
+          [src]="isFavorite ? 'assets/ui/icons/star.svg' : 'assets/ui/icons/star-off.svg'"
+          alt="Favorite"
+        />
+      </button>
+    </div>
+
+    <!-- כפתורי פעולה בצד ימין -->
+    <div class="card-actions-wrapper">
+      <button class="main-action">
+        <img src="assets/ui/icons/menu.svg" alt="More actions" />
+      </button>
+
+      <div class="extra-actions">
+        <button (click)="onEdit()" title="Edit">
+          <img src="assets/ui/icons/edit.svg" alt="Edit" />
+        </button>
+        <button (click)="onDelete()" title="Delete">
+          <img src="assets/ui/icons/delete.svg" alt="Delete" />
+        </button>
+      </div>
+    </div>
+  }
+
+  <div class="character-info">
+    <h2>{{ character.name }}</h2>
+    <p><strong>Status:</strong> {{ character.status }}</p>
+    <p><strong>Gender:</strong> {{ character.gender }}</p>
+    <p><strong>Location:</strong> {{ character.location.name }}</p>
+  </div>
+</div>

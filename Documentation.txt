@@ -1,0 +1,93 @@
+Rick and Morty Character Collection
+אפליקציית Angular לניהול אוסף דמויות מ־Rick and Morty: טעינה מה־API, יצירה/עריכה מקומית, מועדפים (LocalStorage), אינסוף גלילה, וספריית UI ייעודית.
+
+תכולה עיקרית
+Angular + Standalone Components + Signals
+
+RxJS: switchMap, forkJoin, catchError
+
+Reactive Forms עם preview לתמונה ולוקיישן
+
+LocalStorage למועדפים (Persistence אוטומטי)
+
+Infinite Scroll
+
+ספריית UI: PopupComponent, CharacterCardComponent
+
+Type Safety מלא
+
+ארכיטקטורה (כולל קבצי בדיקה)
+arduino
+Copy
+Edit
+apps/
+  rick-morty-app/
+    src/app/
+      app.(ts|html|scss|spec.ts)
+      components/
+        home/
+          home.(ts|html|scss|spec.ts)
+        favorites/
+          favorites.(ts|html|scss|spec.ts)
+        characterForm/
+          characterForm.(ts|html|scss|spec.ts)
+      services/
+        characters.service.(ts|spec.ts)
+        favorites.service.(ts|spec.ts)
+      models/
+        models.ts
+libs/
+  ui/
+    src/lib/
+      popup/
+        popup.component.(ts|html|scss)
+      character-card/
+        character-card.(ts|html|scss)
+
+
+רכיבים ושירותים
+HomeComponent: רשימת דמויות, אינסוף גלילה, פופאפים למחיקה/טופס.
+FavoritesComponent: מציג דמויות מועדפות (טעינה לפי IDs, forkJoin + catchError) והסרה.
+
+
+CharacterFormComponent: טופס ריאקטיבי עם preview, שדות סטטוס/מין/מיקום (טעינת כל המיקומים מה־API).
+
+
+CharactersService: קריאות ל־/character ו־/location עם טיפוסים גנריים ו־switchMap לטעינת כל דפי המיקומים.
+
+
+FavoritesService: Signal של רשימת IDs, התמדה ל־LocalStorage, עדכונים איממוטביליים עם set/update.
+
+API חיצוני
+Rick & Morty API – https://rickandmortyapi.com/api
+
+
+דמויות: /character?page=N, /character/{id}
+
+
+מיקומים: /location?page=N
+
+RxJS – דגשים
+טעינת כל המיקומים: switchMap לעמוד ראשון → חישוב מספר עמודים → forkJoin על כל העמודים → map ל־flat.
+
+
+טעינת מועדפים: forkJoin לקריאה מקבילה לפי IDs, עם catchError(() => of(null)) וסינון בתוצאת המנוי.
+
+
+Change Detection – OnPush
+האפליקציה משתמשת ב־ChangeDetectionStrategy.OnPush בכל קומפוננטות התצוגה לשיפור ביצועים והפחתת רינדורים מיותרים.
+ ניהול ה־state נעשה באמצעות Angular Signals עם עדכונים איממוטביליים (set/update), מה שמבטיח שהתצוגה תתרענן אוטומטית גם תחת OnPush.
+
+
+בדיקות (Unit)
+FavoritesService: הוספה/הסרה, טעינה מ־LocalStorage
+
+CharactersService: קריאות API עם טיפוסים
+
+FavoritesComponent: הצגת מועדפים והסרה
+
+CharacterFormComponent: ולידציות, preview, שליחה
+
+HomeComponent: אינסוף גלילה
+
+AppComponent: טעינה כללית

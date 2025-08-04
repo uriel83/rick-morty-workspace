@@ -1,0 +1,41 @@
+
+
+
+<div class="top-bar">
+  <app-favorites></app-favorites>
+  <button class="add-button" (click)="addNewCharacter()">Add New Character</button>
+</div>
+<div class="characters-container">
+  @for (character of characters(); track character.id) {
+    <lib-character-card
+    [character]="character"
+    [isFavorite]="isFavorite(character.id)()"
+    [action]="true"
+    (edit)="onEdit(character)"
+    (delete)="onDelete(character)"
+    (toggleFavorite)="onToggleFavorite($event, character)"
+  ></lib-character-card>
+    }
+  @if (isLoading) {
+    <div class="loader">Loading...</div>
+  }
+</div>
+
+@if (showPopupOnDelete) {
+  <lib-popup (close)="confirmDelete(false)">
+    <h5>Are you sure you want to delete this character?</h5>
+    <h5>{{selectedCharacterToDelete?.name}}</h5>
+    <div class="popup-actions">
+      <button class="confirm" (click)="confirmDelete(true)">Yes</button>
+      <button class="cancel" (click)="confirmDelete(false)">No</button>
+    </div>
+  </lib-popup>
+
+}
+<!-- npx nx s rick-morty-app -->
+@if (showPopupCharacterForm) {
+  <lib-popup (close)="confirmCharacterForm()">
+    <app-character-form [character]="selectedCharacterToEdit ?? undefined" (characterCreated)="onCharacterAdded($event)"></app-character-form>
+  </lib-popup>
+
+}
